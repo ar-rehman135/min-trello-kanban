@@ -34,7 +34,7 @@ This repository contains a Docker Compose setup for local development with Dynam
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/your-repo.git
+    git clone https://github.com/ar-rehman135/min-trello-kanban
     ```
 
 2. Navigate to the repository directory:
