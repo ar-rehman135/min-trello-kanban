@@ -19,8 +19,14 @@ class ColumnType(graphene.ObjectType):
     title = graphene.String()
     cards = graphene.List(CardType)
 
+    # def resolve_cards(parent, info):
+    #     return list(Card.scan(Card.column_id == parent.id))
     def resolve_cards(parent, info):
-        return list(Card.scan(Card.column_id == parent.id))
+        return sorted(
+            Card.scan(Card.column_id == parent.id),
+            key=lambda card: card.created_at,
+            reverse=True,
+        )
 
 
 # Query class for fetching columns, cards, and columns with cards
@@ -35,7 +41,7 @@ class Query(graphene.ObjectType):
 
     def resolve_all_cards(root, info):
         # Query cards using the created_at index and order by created_at in descending order
-        return list(Card.created_at_index.scan(ScanIndexForward=False))
+        return sorted(Card.scan(), key=lambda card: card.created_at, reverse=True)
 
     def resolve_column_by_id(root, info, id):
         try:
