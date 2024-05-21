@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+
+  backend:
+    depends_on:
+      - dynamodb
+    image: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    env_file:
+      - ./backend/.env
+    links:
+      - dynamodb
+    ports:
+      - 8080:8080
+
+  frontend:
+    depends_on:
+      - backend
+    image: frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    env_file:
+      - ./frontend/.env
+    links:
+      - backend
+    ports:
+      - 3000:3000
