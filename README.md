@@ -40,13 +40,18 @@ This repository contains a Docker Compose setup for local development with Dynam
 2. Navigate to the repository directory:
 
     ```bash
-    cd your-repo
+    cd min-trello-kanban
     ```
-
-3. Start the services using Docker Compose:
+3. Add .env files to each service:
 
     ```bash
-    docker-compose up
+    backend/.env
+    frontend/.env
+    ```
+4. Start the services using Docker Compose:
+
+    ```bash
+    docker-compose up --build
     ```
 
 4. Access the frontend application in your browser at `http://localhost:3000`.
