@@ -97,6 +97,7 @@ const Column: React.FC<ColumnProps> = ({ column }: ColumnProps) => {
         <AddTaskModal
           columnId={column.id}
           state={column.title}
+          column={column}
           setIsAddTaskModalOpen={setIsAddModalOpen}
         />
       )}

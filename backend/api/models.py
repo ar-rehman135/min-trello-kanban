@@ -1,23 +1,8 @@
 from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
-from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
+from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute, NumberAttribute
 
 from django.conf import settings
 from datetime import datetime
-
-
-class CreatedAtIndex(GlobalSecondaryIndex):
-    """
-    This class represents a global secondary index to query cards by created_at.
-    """
-
-    class Meta:
-        index_name = "created_at-index"
-        read_capacity_units = 5
-        write_capacity_units = 5
-        projection = AllProjection()
-
-    created_at = UTCDateTimeAttribute(hash_key=True)
 
 
 class BaseModel(Model):
@@ -34,6 +19,7 @@ class Column(BaseModel):
 
     id = UnicodeAttribute(hash_key=True)
     title = UnicodeAttribute()
+    column_number = NumberAttribute()
 
 
 class Card(BaseModel):
@@ -45,8 +31,7 @@ class Card(BaseModel):
     description = UnicodeAttribute()
     column_id = UnicodeAttribute()
     created_at = UTCDateTimeAttribute(default=datetime.now)
-
-    created_at_index = CreatedAtIndex()
+    row_number = NumberAttribute()
 
 
 def create_tables():

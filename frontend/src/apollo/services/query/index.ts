@@ -5,11 +5,13 @@ export const GET_ALL_COLUMNS = gql`
     allColumns {
       id
       title
+      columnNumber
       cards {
         id
         title
         description
         createdAt
+        rowNumber
       }
     }
   }

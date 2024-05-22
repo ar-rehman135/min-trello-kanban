@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { BackgroundBlur } from "../components/BackgroundBlur";
 import useKanbanBoard from "../hooks/useKanbanBoard";
+import { SingleColumn } from "../utils/types";
 
 interface AddTaskModalProps {
   state: string;
   device?: "mobile" | "desktop";
   columnId: string;
+  column: SingleColumn;
   setIsAddTaskModalOpen: (isOpen: boolean) => void;
 }
 
@@ -13,6 +15,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({
   device = "desktop",
   state,
   columnId,
+  column,
   setIsAddTaskModalOpen,
 }) => {
   const [title, setTitle] = useState<string>("");
@@ -27,7 +30,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({
   };
 
   const onSubmit = () => {
-    createNewCard(title, description, columnId);
+    createNewCard(column, title, description, columnId);
   };
 
   return (

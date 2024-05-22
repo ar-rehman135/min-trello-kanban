@@ -22,11 +22,13 @@ export interface Card {
   title: string;
   description: string;
   createdAt: string;
+  rowNumber: number;
 }
 
 export interface SingleColumn {
   id: string;
   title: string;
+  columnNumber: number;
   cards: Card[];
 }
 

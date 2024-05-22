@@ -27,3 +27,26 @@ export const UPDATE_CARD_COLUMN_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_CARD_ROW_MUTATION = gql`
+  mutation UpdateCardRow(
+    $id: String!
+    $fromRowNumber: Int!
+    $toRowNumber: Int!
+  ) {
+    updateCardRow(
+      id: $id
+      fromRowNumber: $fromRowNumber
+      toRowNumber: $toRowNumber
+    ) {
+      card {
+        id
+        title
+        description
+        columnId
+        createdAt
+        rowNumber
+      }
+    }
+  }
+`;

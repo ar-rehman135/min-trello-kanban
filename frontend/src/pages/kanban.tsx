@@ -15,14 +15,16 @@ const Kanban = () => {
   const [isNewColmunModalOpen, setIsNewColmunModalOpen] =
     useState<boolean>(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-  const { columns, onDragEnd } = useKanbanBoard();
+  const [isUpdateInProgress, setIsUpdateInProgress] = useState(false);
+
+  const { columns, onDragEnd } = useKanbanBoard(setIsUpdateInProgress);
   const [fetchedColumns, setFetchedColumns] = useState({} as GraphQLResponse);
 
   useEffect(() => {
-    if (columns) {
+    if (columns && !isUpdateInProgress) {
       setFetchedColumns(columns);
     }
-  }, [columns]);
+  }, [columns, isUpdateInProgress]);
 
   useEffect(() => {
     const handleWindowResize = () => {

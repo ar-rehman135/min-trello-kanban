@@ -5,8 +5,14 @@ export const CREATE_CARD_MUTATION = gql`
     $title: String!
     $description: String!
     $columnId: String!
+    $rowNumber: Int!
   ) {
-    createCard(title: $title, description: $description, columnId: $columnId) {
+    createCard(
+      title: $title
+      description: $description
+      columnId: $columnId
+      rowNumber: $rowNumber
+    ) {
       card {
         id
         title
@@ -19,8 +25,8 @@ export const CREATE_CARD_MUTATION = gql`
 `;
 
 export const CREATE_COLUMN_MUTATION = gql`
-  mutation CreateColumn($title: String!) {
-    createColumn(title: $title) {
+  mutation CreateColumn($title: String!, $columnNumber: Int!) {
+    createColumn(title: $title, columnNumber: $columnNumber) {
       column {
         id
         title
